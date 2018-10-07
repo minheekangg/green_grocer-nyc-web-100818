@@ -42,15 +42,32 @@ cart.each do |citem, cdesc|
       end
     end
   end
-  puts new_cart
   return new_cart
 end
 
 
 def apply_clearance(cart)
-  # code here
-end
+    cart.each do |citem, cdesc|
+        if cdesc[:clearance]
+          cdesc[:price] = ((cdesc[:price]) * 0.8).round(1)
+        end
+      end
+    return cart
+  end
 
 def checkout(cart, coupons)
-  # code here
+  if cart.length > 0
+    new_cart = consolidate_cart(cart)
+    new_cart = apply_coupons(new_cart, coupons)
+    new_cart = apply_clearance(new_cart)
+
+    total_price = 0
+    new_cart.each do |citem, cdesc|
+       total_price += cdesc[:price] * cdesc[:count]
+     end
+     if total_price > 100
+       total_price = (total_price * 0.9).round(1)
+     end
+     return total_price
+  end
 end
