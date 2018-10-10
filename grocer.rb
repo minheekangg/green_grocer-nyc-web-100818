@@ -2,6 +2,7 @@ def consolidate_cart(cart)
   new_hash = {}
   new_cart = {}
   grouped = cart.group_by{ |el| el }
+  puts el
   grouped.each do |k,v|
     orig_hash = k
     k.each do |item, desc|
